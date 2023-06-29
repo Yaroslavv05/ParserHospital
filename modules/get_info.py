@@ -26,21 +26,36 @@ class info:
     def get_info(self):
         for i in Links.objects.values_list('links_on_hospital', flat=True):
             if i.startswith("https://doctor.webmd.com"):
+                name_hospital = 'None'
+                city = 'None'
+                practicing_physicians_count = 'None'
+                reviews_count = 'None'
+                address = 'None'
+                phone_number = 'None'
+                overview = 'None'
                 try:
                     print(i)
                     self.detour_cloudFlare(link=i)
 
                     name_hospital = self.driver.find_element(By.XPATH, "//h3[@class='facility-name']").text
                     print(name_hospital)
-                    nuber_phone = self.driver.find_element(By.XPATH, '/html/body/div[1]/main/div/div[2]/div[2]/div/a/span/span/span[2]').text
-                    print(nuber_phone)
-                    overview = self.driver.find_element(By.XPATH, '//article').text
-                    print(overview)
+                    city = self.driver.find_element(By.XPATH, "//span[@class='facility-location-address']").text
+                    print(city)
+                    practicing_physicians_count = self.driver.find_element(By.XPATH,
+                                                                           "//a[@class='practicing-physician-info']").text.replace(
+                        'Practicing Physicians', '')
+                    print(practicing_physicians_count)
                     rating = self.driver.find_element(By.XPATH, "//div[@class='webmd-rate profile lhd-ratings loc-cr-ovrat']").get_attribute('aria-valuenow')
                     print(rating)
-                    col_vo_reviews = self.driver.find_element(By.XPATH, "//span[@class='custom-review-count active-review-count']").text
-                    print(col_vo_reviews)
-                    bd_for_info = Info(name_hospital=name_hospital, number_phone=nuber_phone, overview=overview, ratings=rating, col_vo_reviews=col_vo_reviews)
+                    reviews_count = self.driver.find_element(By.XPATH, "//span[@class='custom-review-count active-review-count']").text
+                    print(reviews_count)
+                    address = self.driver.find_element(By.XPATH, "//span[@class='facility-location-address']").text
+                    print(address)
+                    phone_number = self.driver.find_element(By.XPATH, '/html/body/div[1]/main/div/div[2]/div[2]/div/a/span/span/span[2]').text
+                    print(phone_number)
+                    overview = self.driver.find_element(By.XPATH, '//article').text
+                    print(overview)
+                    bd_for_info = Info(name=name_hospital, city=city, practicing_physicians_count=practicing_physicians_count, reviews_count=reviews_count, address=address, number_phone=phone_number, overview=overview)
                     bd_for_info.save()
                 except:
                     pass

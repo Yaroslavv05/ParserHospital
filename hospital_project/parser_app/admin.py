@@ -15,4 +15,4 @@ class LinksAdmin(admin.ModelAdmin):
 
 @admin.register(Info)
 class InfoAdmin(admin.ModelAdmin):
-    list_display = ('name_hospital', 'number_phone', 'overview', 'ratings', 'col_vo_reviews')
+    list_display = ('name', 'city', 'practicing_physicians_count', 'reviews_count', 'address', 'number_phone', 'overview')

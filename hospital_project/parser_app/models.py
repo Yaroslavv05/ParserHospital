@@ -11,9 +11,18 @@ class Links(models.Model):
     links_on_hospital = models.CharField(max_length=300)
 
 
+# class Info(models.Model):
+#     name_hospital = models.CharField(max_length=100)
+#     number_phone = models.CharField(max_length=100)
+#     overview = models.CharField(max_length=300)
+#     ratings = models.CharField(max_length=100)
+#     col_vo_reviews = models.TextField()
+
 class Info(models.Model):
-    name_hospital = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
+    city = models.CharField(max_length=100)
+    practicing_physicians_count = models.PositiveIntegerField()
+    reviews_count = models.PositiveIntegerField()
+    address = models.CharField(max_length=100)
     number_phone = models.CharField(max_length=100)
-    overview = models.CharField(max_length=300)
-    ratings = models.CharField(max_length=100)
-    col_vo_reviews = models.TextField()
+    overview = models.TextField()
