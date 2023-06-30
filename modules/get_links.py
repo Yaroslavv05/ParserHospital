@@ -24,16 +24,17 @@ class Link:
                 print('Not cloudFlare')
 
     def get_links(self):
-        for i in Category.objects.values_list('links_on_cities', flat=True)[0].split():
-            self.detour_cloudFlare(link=i.replace(',', ''))
+        for n in range(5):
+            for i in [link.replace(',', '') for link in Category.objects.values_list('links_on_cities', flat=True)[n].split()]:
+                self.detour_cloudFlare(link=i.replace(',', ''))
 
-            for j in range(3):
-                try:
-                    links_hospital = self.driver.find_element(By.XPATH, f'/html/body/div[1]/main/div[2]/div[1]/div[1]/div[{j+1}]/div/div/div[2]/a').get_attribute('href')
-                    bd_for_links = Links(links_on_hospital=links_hospital)
-                    bd_for_links.save()
-                except:
-                    print('<3')
+                for j in range(3):
+                    try:
+                        links_hospital = self.driver.find_element(By.XPATH, f'/html/body/div[1]/main/div[2]/div[1]/div[1]/div[{j+1}]/div/div/div[2]/a').get_attribute('href')
+                        bd_for_links = Links(links_on_hospital=links_hospital)
+                        bd_for_links.save()
+                    except:
+                        print('<3')
 
 
 C = Link()

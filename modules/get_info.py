@@ -24,7 +24,7 @@ class info:
             print('Not cloudFlare')
 
     def get_info(self):
-        for i in Links.objects.values_list('links_on_hospital', flat=True):
+        for i in [link for link in Links.objects.values_list('links_on_hospital', flat=True)]:
             if i.startswith("https://doctor.webmd.com"):
                 name_hospital = 'None'
                 city = 'None'
