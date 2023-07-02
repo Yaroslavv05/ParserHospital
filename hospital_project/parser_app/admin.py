@@ -1,18 +1,23 @@
 from django.contrib import admin
 
-from .models import Category, Links, Info
+from .models import Category, City, ClinicLink, ClinicInfo
 
 
 @admin.register(Category)
-class KeywordsAdmin(admin.ModelAdmin):
-    list_display = ('name_category', 'cities', 'links_on_cities')
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name_category', 'link', 'status')
 
 
-@admin.register(Links)
-class LinksAdmin(admin.ModelAdmin):
-    list_display = ('links_on_hospital',)
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ('category', 'name', 'link', 'status')
 
 
-@admin.register(Info)
-class InfoAdmin(admin.ModelAdmin):
-    list_display = ('name', 'city', 'practicing_physicians_count', 'reviews_count', 'address', 'number_phone', 'overview')
+@admin.register(ClinicLink)
+class ClinicLinkAdmin(admin.ModelAdmin):
+    list_display = ('category', 'city', 'link', 'status')
+
+
+@admin.register(ClinicInfo)
+class ClinicInfoAdmin(admin.ModelAdmin):
+    list_display = ('name', 'city', 'practicing_physicians_count', 'address', 'number_phone', 'overview')
